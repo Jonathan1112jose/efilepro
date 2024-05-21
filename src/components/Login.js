@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -11,19 +10,23 @@ import {
 } from "@mui/material";
 import "../App.css";
 import NavBar from "./Nav";
+import { useAuth } from "../auth/AuthProvider";
+import { Navigate } from "react-router-dom";
+import React, { useState } from "react";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const auth = useAuth();
 
-    setLoading(true);
-    console.log("autenticando");
-    setLoading(false);
+  if (auth.isAuthenticated) {
+    return <Navigate to={"/dashbord"} />;
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -56,8 +59,9 @@ function LoginForm() {
                 <TextField
                   fullWidth
                   label="Usuario"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={userName}
+                  required
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -67,6 +71,7 @@ function LoginForm() {
                   label="Contraseña"
                   variant="outlined"
                   value={password}
+                  required
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
@@ -80,7 +85,7 @@ function LoginForm() {
                   {loading ? (
                     <CircularProgress color="inherit" size={24} />
                   ) : (
-                    "Iniciando"
+                    "INICIAR"
                   )}
                 </Button>
                 <Box mt={3} textAlign={"center"}>
