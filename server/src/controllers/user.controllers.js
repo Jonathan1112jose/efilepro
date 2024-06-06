@@ -1,33 +1,39 @@
 const pool = require("../db");
 
-const getUsers = async (req, res) => {
-  const result = await pool.query("SELECT * FROM users");
-  console.log(result);
-  res.json(result.rows[0]);
+const getUsers = async (req, res, next) => {
+  try {
+    const result = await pool.query("SELECT * FROM users");
+    console.log(result);
+    res.json(result.rows);
+  } catch (error) {
+    next(error);
+  }
 };
+const loginUser = async (req, res, next) => {
+  try {
+    const { userName, password } = req.body;
+    const result = await pool.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2",
+      [userName, password]
+    );
 
-const createUser = async (req, res) => {
-  const user = req.body;
-
-  console.log(user);
-  res.json(user);
-};
-
-const updateUser = async (req, res) => {
-  const user = req.body;
-  console.log(user);
-  res.send("update user");
-};
-
-const deleteUser = async (req, res) => {
-  const user = req.body;
-  console.log(user);
-  res.send("delete user");
+    if (result.rows.length === 0) {
+      return res.status(401).json({
+        message: "Credenciales incorrectas",
+      });
+    }
+    const user = result.rows[0];
+    res.json({
+      id: user.id,
+      username: user.username,
+      rol: user.rol,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
   getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
+  loginUser,
 };

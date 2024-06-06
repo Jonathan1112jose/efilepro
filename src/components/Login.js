@@ -18,6 +18,7 @@ function LoginForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const auth = useAuth();
 
@@ -25,8 +26,32 @@ function LoginForm() {
     return <Navigate to={"/dashbord"} />;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(`http://localhost:4000/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userName, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        auth.login(data.username, data.rol);
+      } else {
+        setError(data.message || "Error en la autenticación");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
+      setError("Error de red. Inténtalo de nuevo.");
+    }
+
+    setLoading(false);
   };
 
   return (

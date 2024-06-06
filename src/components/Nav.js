@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { logout, useAuth } from "../auth/AuthProvider";
+import { useAuth } from "../auth/AuthProvider";
 
 export default function NavBar() {
   const auth = useAuth();
@@ -24,7 +24,9 @@ export default function NavBar() {
             </Typography>
             <Typography>
               {auth.isAuthenticated ? (
-                <Button onClick={console.log("cerrando secion")}>logout</Button>
+                <Button variant="primary" onClick={auth.logout}>
+                  Logout
+                </Button>
               ) : (
                 ""
               )}
