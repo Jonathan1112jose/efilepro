@@ -1,8 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import NavBar from "./Nav";
-import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
-import Menu from "./NavBar";
+import Menu from "./Menu";
 
 export default function Dashbord() {
   const auth = useAuth();
@@ -10,8 +9,9 @@ export default function Dashbord() {
   return (
     <Box>
       <NavBar />
-      <h1 style={{ color: "#fff" }}>dashboard</h1>
-      <Menu />
+      <Container>
+        <Menu />
+      </Container>
     </Box>
   );
 }

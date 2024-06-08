@@ -10,14 +10,26 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    // Recuperar datos del localStorage al cargar el componente
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setIsAuthenticated(true);
+      setUser(storedUser);
+    }
+  }, []);
+
   const login = (username, role) => {
+    const userData = { username, role };
     setIsAuthenticated(true);
-    setUser({ username, role });
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
