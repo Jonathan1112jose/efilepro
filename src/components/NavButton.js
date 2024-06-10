@@ -2,16 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 
-const NavButton = ({ icon, label, selected = false, url = "" }) => {
-  const hanldleClick = () => {
-    console.log("object");
+const NavButton = ({
+  icon: IconComponent,
+  label,
+  selected = false,
+  url = "",
+}) => {
+  const handleClick = () => {
+    selected = true;
+    console.log("Button clicked:", label);
   };
+
   return (
     <div
       className={`nav-button ${selected ? "selected" : ""}`}
-      onClick={hanldleClick}
+      onClick={handleClick}
     >
-      {icon}
+      {IconComponent && <IconComponent />}
       <span className="label">{label}</span>
     </div>
   );

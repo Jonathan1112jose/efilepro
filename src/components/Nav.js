@@ -6,6 +6,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 
@@ -25,7 +26,7 @@ export default function NavBar() {
             <Typography>
               {auth.isAuthenticated ? (
                 <Button variant="primary" onClick={auth.logout}>
-                  Logout
+                  Logout {<ExitToAppIcon />}
                 </Button>
               ) : (
                 ""

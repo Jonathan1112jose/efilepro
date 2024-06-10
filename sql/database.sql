@@ -6,3 +6,10 @@ CREATE TABLE users(
     password VARCHAR(150),
     rol VARCHAR(150)
 );
+CREATE TABLE menu(
+    id SERIAL PRIMARY KEY,
+    rol VARCHAR(150),
+    description VARCHAR(150),
+    icon VARCHAR(150),
+    url VARCHAR(150)
+);
