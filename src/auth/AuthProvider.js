@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, createContext } from "react";
+import { useBitacora } from "./BitacoraProvider";
 
 const authContext = createContext({
   isAuthenticated: false,
@@ -7,11 +8,11 @@ const authContext = createContext({
   logout: () => {},
 });
 export function AuthProvider({ children }) {
+  const bitacora = useBitacora();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Recuperar datos del localStorage al cargar el componente
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       setIsAuthenticated(true);
@@ -29,6 +30,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);
+    console.log(user.username);
     localStorage.removeItem("user");
   };
 

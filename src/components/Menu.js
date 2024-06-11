@@ -17,7 +17,6 @@ const Menu = () => {
       })
       .then((data) => {
         const filteredMenuItems = data.filter((item) => {
-          console.log(item.roles);
           return item.rol.includes(auth.user.role);
         });
         setMenuItems(filteredMenuItems);
@@ -28,22 +27,24 @@ const Menu = () => {
   const GrainIcon = icons.GrainIcon;
 
   return (
-    <div className="menu-container">
-      <div className="menu-circle">
-        {menuItems.map((item, index) => {
-          const IconComponent = icons[item.icon];
-          return (
-            <NavButton
-              key={index}
-              icon={IconComponent}
-              label={item.description}
-              url={item.url}
-            />
-          );
-        })}
-      </div>
-      <div className="menu-icon">
-        <GrainIcon />
+    <div className="menu-center-wrapper">
+      <div className="menu-container">
+        <div className="menu-circle">
+          {menuItems.map((item, index) => {
+            const IconComponent = icons[item.icon];
+            return (
+              <NavButton
+                key={index}
+                icon={IconComponent}
+                label={item.description}
+                url={item.url}
+              />
+            );
+          })}
+        </div>
+        <div className="menu-icon">
+          <GrainIcon />
+        </div>
       </div>
     </div>
   );

@@ -41,8 +41,16 @@ const getMenu = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+const logActivity = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   getUsers,
   loginUser,
   getMenu,
+  logActivity,
 };

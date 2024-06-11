@@ -10,7 +10,7 @@ const NavButton = ({
 }) => {
   const handleClick = () => {
     selected = true;
-    console.log("Button clicked:", label);
+    console.log("Button clicked:", url);
   };
 
   return (
@@ -25,7 +25,7 @@ const NavButton = ({
 };
 
 NavButton.propTypes = {
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.elementType.isRequired,
   label: PropTypes.string.isRequired,
   selected: PropTypes.bool,
   url: PropTypes.string,

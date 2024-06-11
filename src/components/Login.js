@@ -7,12 +7,13 @@ import {
   Box,
   CircularProgress,
   FormGroup,
+  Alert,
 } from "@mui/material";
 import "../App.css";
-import NavBar from "./Nav";
 import { useAuth } from "../auth/AuthProvider";
 import { Navigate } from "react-router-dom";
 import React, { useState } from "react";
+import Layout from "./Layout";
 
 function LoginForm() {
   const [userName, setUserName] = useState("");
@@ -23,12 +24,13 @@ function LoginForm() {
   const auth = useAuth();
 
   if (auth.isAuthenticated) {
-    return <Navigate to={"/dashbord"} />;
+    return <Navigate to={"/dashboard"} />;
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
     try {
       const response = await fetch(`http://localhost:4000/login`, {
@@ -44,7 +46,7 @@ function LoginForm() {
       if (response.ok) {
         auth.login(data.username, data.rol);
       } else {
-        setError(data.message || "Error en la autenticación");
+        setError(data.message || "Datos Incorrectos");
       }
     } catch (error) {
       console.error("Error de red:", error);
@@ -55,75 +57,82 @@ function LoginForm() {
   };
 
   return (
-    <Box>
-      <NavBar />
-      <Container
-        maxWidth="xs"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <FormGroup
+    <Layout>
+      <Box>
+        <Container
+          maxWidth="xs"
           style={{
-            height: "auto",
-            width: "500px",
-            padding: "15px",
-            background: "#fff",
-            borderRadius: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
           }}
         >
-          <form onSubmit={handleSubmit} className="form">
-            <Typography variant="h5" align="center" gutterBottom>
-              Iniciar sesión
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Usuario"
-                  value={userName}
-                  required
-                  onChange={(e) => setUserName(e.target.value)}
-                />
+          <FormGroup
+            style={{
+              height: "auto",
+              width: "500px",
+              padding: "15px",
+              background: "#fff",
+              borderRadius: "20px",
+            }}
+          >
+            <form onSubmit={handleSubmit} className="form">
+              <Typography variant="h5" align="center" gutterBottom>
+                Iniciar sesión
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Usuario"
+                    value={userName}
+                    required
+                    onChange={(e) => setUserName(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    type="password"
+                    label="Contraseña"
+                    variant="outlined"
+                    value={password}
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Grid>
+                {error && (
+                  <Grid item xs={12}>
+                    <Alert severity="error">{error}</Alert>
+                  </Grid>
+                )}
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <CircularProgress color="inherit" size={24} />
+                    ) : (
+                      "INICIAR"
+                    )}
+                  </Button>
+                  <Box mt={3} textAlign={"center"}>
+                    <Typography variant="body5">
+                      Si no tienes acceso, comunícate con tu encargado.
+                    </Typography>
+                  </Box>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  type="password"
-                  label="Contraseña"
-                  variant="outlined"
-                  value={password}
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                >
-                  {loading ? (
-                    <CircularProgress color="inherit" size={24} />
-                  ) : (
-                    "INICIAR"
-                  )}
-                </Button>
-                <Box mt={3} textAlign={"center"}>
-                  <Typography variant="body5">
-                    Si no tienes acceso, comunícate con tu encargado.
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
-          </form>
-        </FormGroup>
-      </Container>
-    </Box>
+            </form>
+          </FormGroup>
+        </Container>
+      </Box>
+    </Layout>
   );
 }
 

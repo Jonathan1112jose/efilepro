@@ -18,20 +18,38 @@ export default function NavBar() {
       <AppBar position="static" color="primary">
         <Container>
           <Toolbar>
-            <Typography sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <Link to={"/"} style={{ textDecoration: "none", color: "#fff" }}>
                 eFilePro
               </Link>
             </Typography>
-            <Typography>
+            <div>
               {auth.isAuthenticated ? (
-                <Button variant="primary" onClick={auth.logout}>
-                  Logout {<ExitToAppIcon />}
-                </Button>
+                <div>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    style={{
+                      display: "inline-block",
+                      textTransform: "capitalize",
+                      marginRight: "9px",
+                    }}
+                  >
+                    welcome {auth.user.username} ||
+                  </Typography>
+                  <Button
+                    variant="primary"
+                    onClick={auth.logout}
+                    style={{ textTransform: "capitalize" }}
+                    endIcon={<ExitToAppIcon />}
+                  >
+                    Logout
+                  </Button>
+                </div>
               ) : (
                 ""
               )}
-            </Typography>
+            </div>
           </Toolbar>
         </Container>
       </AppBar>
