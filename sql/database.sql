@@ -13,3 +13,12 @@ CREATE TABLE menu(
     icon VARCHAR(150),
     url VARCHAR(150)
 );
+
+CREATE TABLE bitacora(
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(150),
+    date VARCHAR(250),
+    action VARCHAR(250),
+    path VARCHAR(250),
+    description VARCHAR(300)
+);

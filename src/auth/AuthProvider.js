@@ -8,7 +8,7 @@ const authContext = createContext({
   logout: () => {},
 });
 export function AuthProvider({ children }) {
-  const bitacora = useBitacora();
+  const { logActivity } = useBitacora();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
@@ -25,12 +25,26 @@ export function AuthProvider({ children }) {
     setIsAuthenticated(true);
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
+    logActivity({
+      userName: username,
+      date: new Date().toLocaleString(),
+      action: "User logged in",
+      path: window.location.pathname,
+      description: "",
+    });
   };
 
   const logout = () => {
+    const username = user ? user.username : "";
     setIsAuthenticated(false);
     setUser(null);
-    console.log(user.username);
+    logActivity({
+      userName: username,
+      date: new Date().toLocaleString(),
+      action: "User logged out",
+      path: window.location.pathname,
+      description: "",
+    });
     localStorage.removeItem("user");
   };
 

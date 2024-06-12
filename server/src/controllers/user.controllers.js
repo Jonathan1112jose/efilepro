@@ -42,12 +42,25 @@ const getMenu = async (req, res) => {
   }
 };
 
-const logActivity = async (req, res, next) => {
+const logActivity = async (req, res) => {
+  const { userName, date, action, path, description } = req.body;
+
+  if (!userName || !date || !action || !path) {
+    return res.status(400).send({ error: "Missing required fields" });
+  }
+
   try {
+    const result = await pool.query(
+      "INSERT INTO bitacora (username, date, action, path, description) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [userName, date, action, path, description]
+    );
+
+    res.status(201).send(result.rows[0]);
   } catch (error) {
-    next(error);
+    res.status(400).send(error);
   }
 };
+
 module.exports = {
   getUsers,
   loginUser,

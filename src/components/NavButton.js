@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
+import { useAuth } from "../auth/AuthProvider";
+import { useBitacora } from "../auth/BitacoraProvider";
 
 const NavButton = ({
   icon: IconComponent,
@@ -8,9 +10,18 @@ const NavButton = ({
   selected = false,
   url = "",
 }) => {
+  const { user } = useAuth();
+  const { logActivity } = useBitacora();
+
   const handleClick = () => {
     selected = true;
-    console.log("Button clicked:", url);
+    logActivity({
+      userName: user.username,
+      date: new Date().toLocaleString(),
+      path: url,
+      action: "Button clicked",
+      description: `Button with label ${label} clicked`,
+    });
   };
 
   return (
