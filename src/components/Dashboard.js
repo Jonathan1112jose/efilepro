@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Menu from "./Menu";
-import "./style.css";
+import "./css/style.css";
 import Layout from "./Layout";
 
 export default function Dashboard() {

@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import "./css/style.css";
 import { useAuth } from "../auth/AuthProvider";
 import { useBitacora } from "../auth/BitacoraProvider";
+import { useNavigate } from "react-router-dom";
 
 const NavButton = ({
   icon: IconComponent,
@@ -12,6 +13,7 @@ const NavButton = ({
 }) => {
   const { user } = useAuth();
   const { logActivity } = useBitacora();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     selected = true;

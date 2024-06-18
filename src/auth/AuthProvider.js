@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
     logActivity({
       userName: username,
       date: new Date().toLocaleString(),
-      action: "User logged in",
+      action: "User login",
       path: window.location.pathname,
       description: "",
     });
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
     logActivity({
       userName: username,
       date: new Date().toLocaleString(),
-      action: "User logged out",
+      action: "User logout",
       path: window.location.pathname,
       description: "",
     });

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import NavButton from "./NavButton";
 import icons from "../icons";
-import "./style.css";
+import "./css/style.css";
 import { useAuth } from "../auth/AuthProvider";
+import { NavLink } from "react-router-dom";
 
 const Menu = () => {
   const auth = useAuth();
@@ -33,12 +34,13 @@ const Menu = () => {
           {menuItems.map((item, index) => {
             const IconComponent = icons[item.icon];
             return (
-              <NavButton
+              <NavLink
+                to={`/dashboard${item.url}`}
                 key={index}
-                icon={IconComponent}
-                label={item.description}
-                url={item.url}
-              />
+                style={{ textDecoration: "none" }}
+              >
+                <NavButton icon={IconComponent} label={item.description} />
+              </NavLink>
             );
           })}
         </div>
