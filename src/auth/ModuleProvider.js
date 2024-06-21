@@ -4,14 +4,15 @@ const ModuleDataContext = createContext();
 
 export const ModuleDataProvider = ({ children }) => {
   const [moduleData, setModuleData] = useState({
+    id: null,
     icon: null,
     label: "",
     url: "",
     user: null,
   });
 
-  const handleItemClick = ({ icon, label, url, user }) => {
-    setModuleData({ icon, label, url, user });
+  const handleItemClick = ({ id, icon, label, url, user }) => {
+    setModuleData({ id, icon, label, url, user });
   };
 
   return (

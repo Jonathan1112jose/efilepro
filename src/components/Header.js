@@ -26,7 +26,7 @@ const Header = () => {
     );
   };
 
-  const topMenuItems = menuItems.filter((item) => item.padre === 1);
+  const topMenuItems = menuItems.filter((item) => item.padre === moduleData.id);
 
   return (
     <header className="dynamic-header">
@@ -56,7 +56,7 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-      <div className="column">{/* Espacio para alertas */}</div>
+      <div className="column">{moduleData.user.username}</div>
     </header>
   );
 };

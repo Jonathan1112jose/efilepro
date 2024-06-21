@@ -24,6 +24,7 @@ const Menu = () => {
                 style={{ textDecoration: "none" }}
               >
                 <NavButton
+                  id={item.id}
                   icon={IconComponent}
                   label={item.description}
                   url={item.url}

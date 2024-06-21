@@ -6,6 +6,7 @@ import { useBitacora } from "../auth/BitacoraProvider";
 import { useModuleDataContext } from "../auth/ModuleProvider";
 
 const NavButton = ({
+  id,
   icon: IconComponent,
   label,
   selected = false,
@@ -23,7 +24,7 @@ const NavButton = ({
       action: "Button clicked",
       description: `Button with ${label} clicked`,
     });
-    handleItemClick({ icon: IconComponent, label, url, user });
+    handleItemClick({ id, icon: IconComponent, label, url, user });
   };
 
   return (
@@ -38,6 +39,7 @@ const NavButton = ({
 };
 
 NavButton.propTypes = {
+  id: PropTypes.number.isRequired,
   icon: PropTypes.elementType.isRequired,
   label: PropTypes.string.isRequired,
   selected: PropTypes.bool,
