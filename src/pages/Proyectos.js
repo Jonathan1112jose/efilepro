@@ -1,13 +1,15 @@
 import React from "react";
-import Tools from "../components/Tools";
-import Header from "../components/Header";
+import Layout from "../components/Layout";
 import { Box } from "@mui/material";
+import Header from "../components/Header";
 
-export default function Proyectos() {
+export default function Lotes() {
+  const selectedOption = "Proyectos"; // Ejemplo: establecer la opción seleccionada
   return (
-    <Box>
-      <Header />
-      <Tools />
-    </Box>
+    <Layout>
+      <Box>
+        <Header selectedOption={selectedOption} />
+      </Box>
+    </Layout>
   );
 }

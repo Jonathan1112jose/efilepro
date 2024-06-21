@@ -6,9 +6,10 @@ import Header from "../components/Header";
 
 export default function Lotes() {
   return (
-    <Box>
-      <Header />
-      <Tools />
-    </Box>
+    <Layout>
+      <Box>
+        <Header />
+      </Box>
+    </Layout>
   );
 }

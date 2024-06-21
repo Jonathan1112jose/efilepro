@@ -9,6 +9,7 @@ import {
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
+import { useBitacora } from "../auth/BitacoraProvider";
 
 export default function NavBar() {
   const auth = useAuth();

@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Proyectos from "../pages/Proyectos";
 import Lotes from "../pages/Lotes";
 import Plantillas from "../pages/Plantillas";
+import Colaboradores from "../pages/Colaboradores";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "plantillas",
         element: <Plantillas />,
+      },
+      {
+        path: "colaboradores",
+        element: <Colaboradores />,
       },
     ],
   },

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./css/style.css";
 import { useAuth } from "../auth/AuthProvider";
 import { useBitacora } from "../auth/BitacoraProvider";
-import { useNavigate } from "react-router-dom";
+import { useModuleDataContext } from "../auth/ModuleProvider";
 
 const NavButton = ({
   icon: IconComponent,
@@ -12,18 +12,18 @@ const NavButton = ({
   url = "",
 }) => {
   const { user } = useAuth();
+  const { handleItemClick } = useModuleDataContext();
   const { logActivity } = useBitacora();
-  const navigate = useNavigate();
 
   const handleClick = () => {
-    selected = true;
     logActivity({
       userName: user.username,
       date: new Date().toLocaleString(),
       path: url,
       action: "Button clicked",
-      description: `Button with label ${label} clicked`,
+      description: `Button with ${label} clicked`,
     });
+    handleItemClick({ icon: IconComponent, label, url, user });
   };
 
   return (
