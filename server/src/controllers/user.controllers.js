@@ -61,7 +61,19 @@ const logActivity = async (req, res) => {
   }
 };
 
+const getActions = async (req, res) => {
+  try {
+    const query = "SELECT * FROM actions";
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching actions:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
+  getActions,
   getUsers,
   loginUser,
   getMenu,

@@ -13,8 +13,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PatternIcon from "@mui/icons-material/Pattern";
 import GrainIcon from "@mui/icons-material/Grain";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MailIcon from "@mui/icons-material/Mail";
+import EventIcon from "@mui/icons-material/Event";
+import BuildIcon from "@mui/icons-material/Build";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const icons = {
+  NotificationsIcon,
+  MailIcon,
+  EventIcon,
+  BuildIcon,
+  AccountCircleIcon,
   GrainIcon,
   WorkspacesIcon,
   TopicIcon,

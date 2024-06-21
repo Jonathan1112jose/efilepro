@@ -5,8 +5,29 @@ const MenuDataContext = createContext();
 
 export const MenuDataProvider = ({ children }) => {
   const [menuItems, setMenuItems] = useState([]);
+  const [actions, setActions] = useState([]);
   const auth = useAuth();
 
+  //aciones
+
+  useEffect(() => {
+    const fetchActions = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/actions");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setActions(data);
+      } catch (error) {
+        console.error("Error fetching actions:", error);
+      }
+    };
+
+    fetchActions();
+  }, []);
+
+  //Menu principal
   useEffect(() => {
     if (auth.user && auth.user.role) {
       fetch("http://localhost:4000/menu")
@@ -29,7 +50,7 @@ export const MenuDataProvider = ({ children }) => {
   }, [auth.user]);
 
   return (
-    <MenuDataContext.Provider value={{ menuItems }}>
+    <MenuDataContext.Provider value={{ menuItems, actions }}>
       {children}
     </MenuDataContext.Provider>
   );

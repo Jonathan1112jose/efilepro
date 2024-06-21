@@ -25,5 +25,13 @@ CREATE TABLE bitacora(
     description VARCHAR(300)
 );
 
+CREATE TABLE actions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    icon VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    action TEXT NOT NULL
+);
+
 
 

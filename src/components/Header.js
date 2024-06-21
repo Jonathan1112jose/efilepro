@@ -3,9 +3,12 @@ import "./css/Header.css";
 import { useMenuDataContext } from "../auth/MenuDataProvider";
 import { NavLink } from "react-router-dom";
 import { useModuleDataContext } from "../auth/ModuleProvider";
+import { Tooltip } from "@mui/material";
+import { IconButton } from "@mui/material";
+import icons from "../icons";
 
 const Header = () => {
-  const { menuItems } = useMenuDataContext();
+  const { menuItems, actions } = useMenuDataContext();
   const { moduleData } = useModuleDataContext();
 
   const renderSubMenu = (parentId) => {
@@ -28,6 +31,17 @@ const Header = () => {
 
   const topMenuItems = menuItems.filter((item) => item.padre === moduleData.id);
 
+  const renderAlerts = () => (
+    <div className="alerts-container">
+      {actions.map((action) => (
+        <Tooltip key={action.id} title={action.message}>
+          <IconButton style={{ marginRight: 16 }}>
+            {React.createElement(icons[action.icon])}
+          </IconButton>
+        </Tooltip>
+      ))}
+    </div>
+  );
   return (
     <header className="dynamic-header">
       <div className="column">
@@ -56,7 +70,10 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-      <div className="column">{moduleData.user.username}</div>
+      <div className="column">
+        {renderAlerts()}
+        {moduleData.user.username}
+      </div>
     </header>
   );
 };

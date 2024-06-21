@@ -67,3 +67,16 @@
     white-space: nowrap;
   }
   
+  .alerts-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .alerts-container .MuiIconButton-root {
+    margin-right: 16px; 
+  }
+  
+  .alerts-container .MuiIconButton-root:last-child {
+    margin-right: 0;
+  }
+  
