@@ -1,82 +1,91 @@
 .dynamic-header {
-    display: grid;
-    grid-template-columns: 15% 55% 30%;
-    padding: 10px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-  }
+  display: grid;
+  grid-template-columns: 15% 55% 30%;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
   
-  .column {
-    display: flex;
-    align-items: center;
-  }
+}
+
+.column {
+  display: flex;
+  align-items: center;
+}
+
+.icon-label {
+  display: flex;
+  align-items: center;
   
-  .icon-label {
-    display: flex;
-    align-items: center;
-  }
+}
+
+.icon {
+  margin-right: 8px;
   
-  .icon {
-    margin-right: 8px;
-  }
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.menu ul li {
+  position: relative;
+  margin: 0 10px;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  color: black;
+  cursor: pointer;
+}
+
+.menu ul li ul.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  z-index: 1;
+}
+
+.menu ul li:hover ul.submenu {
+  display: block;
+}
+
+.menu ul li ul.submenu li {
+  display: block;
+}
+
+.menu ul li ul.submenu li a {
+  padding: 10px;
+  white-space: nowrap;
+  color: #333;
+}
+
+.alerts-container {
+  display: flex;
+  align-items: center;
   
-  .menu {
-    display: flex;
-    justify-content: center;
-  }
+}
+
+.alerts-container .MuiIconButton-root {
+  margin-right: 16px;
   
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menu ul li {
-    position: relative;
-    display: inline-block;
-    margin: 0 10px;
-  }
-  
-  .menu ul li a {
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-    color: #333;
-    cursor: pointer;
-  }
-  
-  .menu ul li ul.submenu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  .menu ul li:hover ul.submenu {
-    display: block;
-  }
-  
-  .menu ul li ul.submenu li {
-    display: block;
-  }
-  
-  .menu ul li ul.submenu li a {
-    padding: 10px;
-    white-space: nowrap;
-  }
-  
-  .alerts-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .alerts-container .MuiIconButton-root {
-    margin-right: 16px; 
-  }
-  
-  .alerts-container .MuiIconButton-root:last-child {
-    margin-right: 0;
-  }
-  
+}
+
+.alerts-container .MuiIconButton-root:last-child {
+  margin-right: 0;
+}

@@ -18,8 +18,22 @@ import MailIcon from "@mui/icons-material/Mail";
 import EventIcon from "@mui/icons-material/Event";
 import BuildIcon from "@mui/icons-material/Build";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import SearchIcon from "@mui/icons-material/Search";
+import CloudIcon from "@mui/icons-material/Cloud";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import ViewListIcon from "@mui/icons-material/ViewList";
 
 const icons = {
+  ArchiveIcon,
+  FileCopyIcon,
+  SettingsApplicationsIcon,
+  SearchIcon,
+  CloudIcon,
+  VisibilityIcon,
+  ViewListIcon,
   NotificationsIcon,
   MailIcon,
   EventIcon,

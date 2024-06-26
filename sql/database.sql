@@ -34,4 +34,14 @@ CREATE TABLE actions (
 );
 
 
+CREATE TABLE Proyecto (
+    Id SERIAL PRIMARY KEY,
+    CodigoInterno VARCHAR(50),
+    Nombre_Proyecto VARCHAR(350),
+    Observaciones TEXT,
+    FechaCreacion TIMESTAMP,
+    FechaActualizacion TIMESTAMP,
+    FechaEliminacion TIMESTAMP,
+    Fav BOOLEAN
+);
 

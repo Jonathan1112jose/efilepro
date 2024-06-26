@@ -1,11 +1,17 @@
 import React from "react";
-import "./css/Header.css";
-import { useMenuDataContext } from "../auth/MenuDataProvider";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Tooltip,
+  Box,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { useMenuDataContext } from "../auth/MenuDataProvider";
 import { useModuleDataContext } from "../auth/ModuleProvider";
-import { Tooltip } from "@mui/material";
-import { IconButton } from "@mui/material";
 import icons from "../icons";
+import "./css/Header.css";
 
 const Header = () => {
   const { menuItems, actions } = useMenuDataContext();
@@ -32,49 +38,70 @@ const Header = () => {
   const topMenuItems = menuItems.filter((item) => item.padre === moduleData.id);
 
   const renderAlerts = () => (
-    <div className="alerts-container">
-      {actions.map((action) => (
-        <Tooltip key={action.id} title={action.message}>
-          <IconButton style={{ marginRight: 16 }}>
-            {React.createElement(icons[action.icon])}
-          </IconButton>
-        </Tooltip>
-      ))}
-    </div>
+    <Box display="flex" alignItems="center">
+      {actions
+        .filter((action) => action.nivel === 0)
+        .map((action) => (
+          <Tooltip key={action.id} title={action.message}>
+            <IconButton style={{ marginRight: 16, color: "" }}>
+              {React.createElement(icons[action.icon])}
+            </IconButton>
+          </Tooltip>
+        ))}
+    </Box>
   );
+
   return (
-    <header className="dynamic-header">
-      <div className="column">
-        <div className="icon-label">
+    <AppBar position="static" sx={{ bgcolor: "transparent" }}>
+      <Toolbar>
+        <Box display="flex" alignItems="center" flexGrow={1}>
           <NavLink
             className={"menu"}
-            style={{ textDecoration: "none", color: "black" }}
+            style={{
+              textDecoration: "none",
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+            }}
             to={"/"}
           >
-            <span className="icon">
-              {moduleData.icon && <moduleData.icon />}
-            </span>
-            <span className="label">{moduleData.label}</span>
+            {moduleData.icon && (
+              <moduleData.icon
+                style={{ marginRight: 8 }}
+                sx={{ color: "black" }}
+              />
+            )}
+            <Typography variant="h6" sx={{ color: "black" }}>
+              {moduleData.label}
+            </Typography>
           </NavLink>
-        </div>
-      </div>
-      <div className="column">
-        <nav className="menu">
-          <ul>
-            {topMenuItems.map((item) => (
-              <li key={item.id}>
-                <a>{item.description}</a>
-                {renderSubMenu(item.id)}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      <div className="column">
-        {renderAlerts()}
-        {moduleData.user.username}
-      </div>
-    </header>
+        </Box>
+        <Box display="flex" flexGrow={1} justifyContent="center">
+          <nav className="menu">
+            <ul>
+              {topMenuItems.map((item) => (
+                <li key={item.id} className="menu-item">
+                  <a>{item.description}</a>
+                  {renderSubMenu(item.id)}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          flexGrow={1}
+          justifyContent="flex-end"
+          color={"black"}
+        >
+          {renderAlerts()}
+          <Typography variant="body1" style={{ marginLeft: 16 }}>
+            {moduleData.user.username}
+          </Typography>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 
