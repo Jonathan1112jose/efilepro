@@ -1,0 +1,73 @@
+.form-container {
+    padding: 20px;
+    border-radius: 4px;
+    margin: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .tabs {
+    margin-bottom: 20px;
+  }
+  
+  .tab-content {
+    min-height: 400px; /* Set a minimum height to prevent content shifting */
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  .section-title {
+    margin-bottom: 10px;
+  }
+  
+  .form-field {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .fav-checkbox {
+    margin-left: 10px;
+  }
+  
+  .custom-input::before {
+    border-bottom: 2px solid blue;
+  }
+  
+  .custom-input:hover:not(.Mui-disabled)::before {
+    border-bottom: 2px solid blue;
+  }
+  
+  .custom-input::after {
+    border-bottom: 2px solid blue;
+  }
+  
+  .custom-label.Mui-focused {
+    color: blue;
+  }
+  
+  .form-field .MuiFormControl-root {
+    flex: 1;
+  }
+  
+  .form-field .MuiFormControlLabel-root {
+    margin-left: 10px;
+  }
+  
+  .vista-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    min-height: 400px; /* Match the minimum height of the tab-content to prevent shifting */
+  }
+  
+  .vista-card {
+    width: 30%;
+    background-color: lightgrey;
+    margin: 10px 0;
+    border: 1px solid grey;
+  }
+  

@@ -1,19 +1,45 @@
-// Body.js
-
-import React from "react";
-import { Grid, Paper } from "@mui/material";
-import "./css/body.css";
+import React, { useState } from "react";
+import { Grid, Paper, AppBar, Toolbar, Button } from "@mui/material";
+import "./css/body.css"; // Estilo CSS para
+import FormNew from "./FormNew";
 
 const Body = () => {
+  const [selectedView, setSelectedView] = useState("form");
+
+  const handleViewChange = (view) => {
+    setSelectedView(view);
+  };
+
   return (
-    <div className="body-wrapper">
-      <Grid container spacing={2} className="body-container">
-        <Grid item xs={3} className="left-column">
-          <Paper className="yellow-rectangle"></Paper>
-        </Grid>
-        <Grid item xs={9} className="right-column"></Grid>
+    <Grid container spacing={2} className="body-container">
+      {/* Barra de herramientas */}
+      <Grid item xs={12}>
+        <AppBar position="static" className="toolbar">
+          <Toolbar>
+            <Button color="inherit" onClick={() => handleViewChange("form")}>
+              Formulario
+            </Button>
+            <Button color="inherit" onClick={() => handleViewChange("vistas")}>
+              Vistas
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => handleViewChange("detalles")}
+            >
+              Detalles
+            </Button>
+          </Toolbar>
+        </AppBar>
       </Grid>
-    </div>
+
+      {/* Contenido principal */}
+      <Grid item xs={12}>
+        <Paper className="content-paper">
+          {/* Renderizar el componente según la vista seleccionada */}
+          {selectedView === "form" && <FormNew />}
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

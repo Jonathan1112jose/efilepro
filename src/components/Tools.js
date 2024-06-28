@@ -53,10 +53,7 @@ export default function Tools() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{ bgcolor: "transparent", boxShadow: "none" }}
-      >
+      <AppBar position="static" sx={{ bgcolor: "#ffff", boxShadow: "none" }}>
         <Toolbar>
           <Grid container alignItems="center">
             {/* Primera columna */}

@@ -1,34 +1,13 @@
-/* Body.css */
-
-.body-wrapper {
-    margin-top: 16px; 
-}
-
 .body-container {
-    height: calc(100vh - 210px);
-    
+  padding: 20px;
 }
 
-.left-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 1px solid #0e0e0e;
+.toolbar {
+  background-color: #2196f3; /* Color de fondo de la barra de herramientas */
 }
 
-.yellow-rectangle {
-    width: 80%;
-    height: 60%;
-    background-color: yellow;
-}
-
-.right-column {
-    padding: 16px;
-}
-
-.card {
-    width: 100%;
-    height: 100px;
-    background-color: lightgrey;
-    border: 1px solid grey;
+.content-paper {
+  padding: 20px;
+  height: calc(100vh - 130px); /* Ajustar altura para llenar el espacio disponible */
+  overflow: auto; /* Añadir desplazamiento vertical si es necesario */
 }
