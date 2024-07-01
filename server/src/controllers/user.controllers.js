@@ -1,4 +1,5 @@
 const pool = require("../db");
+const { moduleEndpointMap } = require("../../../src/auth/moduleApi");
 
 const getUsers = async (req, res, next) => {
   try {
@@ -9,6 +10,7 @@ const getUsers = async (req, res, next) => {
     next(error);
   }
 };
+
 const loginUser = async (req, res, next) => {
   try {
     const { userName, password } = req.body;

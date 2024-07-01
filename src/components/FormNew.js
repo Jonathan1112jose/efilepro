@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Checkbox,
@@ -8,26 +8,55 @@ import {
   Paper,
   Tab,
   Tabs,
-  Card,
-  CardContent,
 } from "@mui/material";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Star from "@mui/icons-material/Star";
 import "./css/FormNew.css";
+import { useModuleDataContext } from "../auth/ModuleProvider";
+import { useToolsContext } from "../auth/ToolsProvider";
 
 const FormNew = () => {
   const [fav, setFav] = useState(false);
+  const [formData, setFormData] = useState({
+    nombre: "",
+    codigoInterno: "",
+    observaciones: "",
+    fav: false,
+    fechaCreacion: null,
+    fechaActualizacion: null,
+    fechaEliminacion: null,
+  });
   const [tabIndex, setTabIndex] = useState(0);
+  const { moduleData } = useModuleDataContext();
+  const { handleFormDataChange } = useToolsContext();
 
   const handleTabChange = (event, newIndex) => {
     setTabIndex(newIndex);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    setFormData((prevData) => ({
+      ...prevData,
+      fechaCreacion: new Date().toISOString(),
+    }));
+  }, []);
+
+  useEffect(() => {
+    handleFormDataChange(formData);
+  }, [formData, handleFormDataChange]);
+
   return (
     <Paper className="form-container" elevation={3}>
       <Tabs value={tabIndex} onChange={handleTabChange} className="tabs">
         <Tab label="Información General" />
-        <Tab label="Vista" />
       </Tabs>
 
       <Box className="tab-content">
@@ -38,11 +67,13 @@ const FormNew = () => {
             </Typography>
             <Box className="form-field">
               <TextField
-                label="Nombre"
+                label={`Nombre ${moduleData.label}`}
                 variant="standard"
                 fullWidth
                 InputProps={{ className: "custom-input" }}
                 InputLabelProps={{ className: "custom-label" }}
+                name="nombre"
+                onChange={handleChange}
               />
               <FormControlLabel
                 control={
@@ -50,7 +81,13 @@ const FormNew = () => {
                     icon={<StarBorder />}
                     checkedIcon={<Star />}
                     checked={fav}
-                    onChange={(e) => setFav(e.target.checked)}
+                    onChange={(e) => {
+                      setFav(e.target.checked);
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        fav: e.target.checked,
+                      }));
+                    }}
                     name="fav"
                   />
                 }
@@ -59,12 +96,14 @@ const FormNew = () => {
               />
             </Box>
             <TextField
-              label="Codigo Interno del lote"
+              label="Codigo Interno"
               variant="standard"
               fullWidth
               className="form-field"
               InputProps={{ className: "custom-input" }}
               InputLabelProps={{ className: "custom-label" }}
+              name="codigoInterno"
+              onChange={handleChange}
             />
             <TextField
               label="Observaciones"
@@ -75,6 +114,8 @@ const FormNew = () => {
               className="form-field"
               InputProps={{ className: "custom-input" }}
               InputLabelProps={{ className: "custom-label" }}
+              name="observaciones"
+              onChange={handleChange}
             />
             <Box className="section">
               <Typography variant="h6" className="section-title">
@@ -87,6 +128,7 @@ const FormNew = () => {
                   fullWidth
                   InputProps={{ readOnly: true, className: "custom-input" }}
                   InputLabelProps={{ className: "custom-label" }}
+                  name="fechaCreacion"
                 />
               </Box>
               <Box className="form-field">
@@ -96,6 +138,7 @@ const FormNew = () => {
                   fullWidth
                   InputProps={{ readOnly: true, className: "custom-input" }}
                   InputLabelProps={{ className: "custom-label" }}
+                  name="fechaActualizacion"
                 />
               </Box>
               <Box className="form-field">
@@ -105,21 +148,10 @@ const FormNew = () => {
                   fullWidth
                   InputProps={{ readOnly: true, className: "custom-input" }}
                   InputLabelProps={{ className: "custom-label" }}
+                  name="fechaEliminacion"
                 />
               </Box>
             </Box>
-          </Box>
-        )}
-
-        {tabIndex === 1 && (
-          <Box className="vista-section">
-            {[1, 2, 3].map((value) => (
-              <Card key={value} className="vista-card">
-                <CardContent>
-                  <Typography>Card {value}</Typography>
-                </CardContent>
-              </Card>
-            ))}
           </Box>
         )}
       </Box>

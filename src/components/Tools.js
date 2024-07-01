@@ -17,17 +17,17 @@ import {
 import "./css/tools.css";
 import icons from "../icons";
 import { useModuleDataContext } from "../auth/ModuleProvider";
-import { useMenuDataContext } from "../auth/MenuDataProvider";
-import { ClassSharp } from "@mui/icons-material";
+import { useToolsContext } from "../auth/ToolsProvider";
 
 export default function Tools() {
-  const { actions } = useMenuDataContext();
+  const { actions, handleActionClick, handleSearchChange, searchQuery } =
+    useToolsContext();
   const { moduleData } = useModuleDataContext();
   const [showCloudIcon, setShowCloudIcon] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [searchValue, setSearchValue] = useState("");
 
   const handleNewButtonClick = () => {
+    handleActionClick("newAction");
     setShowCloudIcon(true);
   };
 
@@ -39,17 +39,7 @@ export default function Tools() {
     setAnchorEl(null);
   };
 
-  const handleActionClick = (action) => {
-    console.log(`Realizando acción: ${action}`);
-    handleClose();
-  };
-
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value);
-    console.log(searchValue);
-  };
-
-  const nuevoAction = actions.find((action) => action.id === 12);
+  const nuevoAction = actions.find((action) => action.action === "newAction");
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -69,7 +59,7 @@ export default function Tools() {
                 {moduleData.label}
               </Typography>
               {actions
-                .filter((action) => action.id === 8)
+                .filter((action) => action.action === "settingsAction")
                 .map((action) => (
                   <IconButton
                     key={action.id}
@@ -81,7 +71,7 @@ export default function Tools() {
                 ))}
               {showCloudIcon &&
                 actions
-                  .filter((action) => action.id === 7)
+                  .filter((action) => action.action === "cloudAction")
                   .map((action) => (
                     <IconButton
                       size="large"
@@ -93,7 +83,6 @@ export default function Tools() {
                   ))}
 
               {/* Menú desplegable para la acción Settings */}
-
               <Menu
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
@@ -124,7 +113,7 @@ export default function Tools() {
                   placeholder="Buscar…"
                   inputProps={{ "aria-label": "search" }}
                   className="input-base"
-                  value={searchValue}
+                  value={searchQuery}
                   onChange={handleSearchChange}
                 />
               </div>

@@ -8,6 +8,7 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { BitacoraProvider } from "./auth/BitacoraProvider";
 import { ModuleDataProvider } from "./auth/ModuleProvider";
 import { MenuDataProvider } from "./auth/MenuDataProvider";
+import { ToolsProvider } from "./auth/ToolsProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,7 +17,9 @@ root.render(
       <ModuleDataProvider>
         <AuthProvider>
           <MenuDataProvider>
-            <RouterProvider router={router} />
+            <ToolsProvider>
+              <RouterProvider router={router} />
+            </ToolsProvider>
           </MenuDataProvider>
         </AuthProvider>
       </ModuleDataProvider>
