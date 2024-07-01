@@ -34,7 +34,7 @@ CREATE TABLE actions (
 );
 
 
-CREATE TABLE Proyecto (
+CREATE TABLE lote (
     Id SERIAL PRIMARY KEY,
     CodigoInterno VARCHAR(50),
     Nombre_Proyecto VARCHAR(350),

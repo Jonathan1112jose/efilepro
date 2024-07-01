@@ -1,5 +1,4 @@
 const pool = require("../db");
-const { moduleEndpointMap } = require("../../../src/auth/moduleApi");
 
 const getUsers = async (req, res, next) => {
   try {
@@ -8,6 +7,31 @@ const getUsers = async (req, res, next) => {
     res.json(result.rows);
   } catch (error) {
     next(error);
+  }
+};
+
+const saveData = async (req, res) => {
+  const { moduleId } = req.params;
+  const { data } = req.body;
+
+  try {
+    const result = await pool.query(
+      `INSERT INTO ${moduleId} (codigointerno,nombre_proyecto, observaciones, fechacreacion, fechaactualizacion, fechaeliminacion, fav) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      [
+        data.codigoInterno,
+        data.nombre,
+        data.observaciones,
+        data.fechaCreacion,
+        data.fechaActualizacion,
+        data.fechaEliminacion,
+        data.fav,
+      ]
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error saving data:", error);
+    res.status(400).json({ error: "Error saving data" });
   }
 };
 
@@ -34,6 +58,7 @@ const loginUser = async (req, res, next) => {
     next(error);
   }
 };
+
 const getMenu = async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM menu");
@@ -80,4 +105,5 @@ module.exports = {
   loginUser,
   getMenu,
   logActivity,
+  saveData,
 };

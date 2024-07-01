@@ -5,6 +5,7 @@ import { useModuleDataContext } from "../auth/ModuleProvider";
 import { useBitacora } from "./BitacoraProvider.js";
 import { useAuth } from "./AuthProvider.js";
 
+const { saveData } = require("./ModuleApi.js");
 const ToolsContext = createContext();
 
 export const ToolsProvider = ({ children }) => {
@@ -28,7 +29,7 @@ export const ToolsProvider = ({ children }) => {
     userAction: () => console.log("Usuario activo"),
     searchAction: () => console.log("Buscar algo"),
     cloudAction: () => {
-      saveFormData();
+      saveData(moduleData.id, formData);
       setCurrentView("vistas");
     },
     settingsAction: () => console.log("Configuraciones"),
@@ -73,14 +74,6 @@ export const ToolsProvider = ({ children }) => {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
-  };
-
-  const saveFormData = async () => {
-    try {
-      await console.log(moduleData.id, formData);
-    } catch (error) {
-      console.error("Error al guardar los datos:", error);
-    }
   };
 
   useEffect(() => {
