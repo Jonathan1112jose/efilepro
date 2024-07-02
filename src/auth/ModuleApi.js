@@ -48,7 +48,32 @@ const saveData = async (moduleId, data) => {
   }
 };
 
+const getData = async (moduleId) => {
+  const endpoint = moduleEndpointMap[moduleId];
+
+  if (!endpoint) {
+    throw new Error(`No endpoint found for moduleId: ${moduleId}`);
+  }
+
+  const url = `${API_BASE_URL}${endpoint}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   moduleEndpointMap,
   saveData,
+  getData,
 };

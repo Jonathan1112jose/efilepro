@@ -14,7 +14,7 @@ export const ToolsProvider = ({ children }) => {
   const { logActivity } = useBitacora();
   const auth = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentView, setCurrentView] = useState("vistas");
+  const [currentView, setCurrentView] = useState("list");
   const [formData, setFormData] = useState({});
 
   const handleFormDataChange = (newData) => {
@@ -34,15 +34,17 @@ export const ToolsProvider = ({ children }) => {
     },
     settingsAction: () => console.log("Configuraciones"),
     visibilityAction: () => {
-      setCurrentView("vistas");
+      //no tocar
       console.log("Visibilidad");
     },
     viewListAction: () => {
-      setCurrentView("vistas");
+      setCurrentView("list");
+      //listas
       console.log("Ver lista");
     },
     viewModuleAction: () => {
-      setCurrentView("vistas");
+      setCurrentView("cards");
+      //tarjetas
       console.log("ver card's");
     },
     newAction: () => {

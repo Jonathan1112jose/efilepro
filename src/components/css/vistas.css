@@ -1,0 +1,26 @@
+/* vistas.css */
+
+.table-header {
+  background-color: #d5d5d5ac;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold; /* Opcional: agregar negrita */
+}
+
+.table-row {
+  border-bottom: 1px solid #ccc;
+}
+
+.table-row:hover {
+  background-color: #f0f0f0; /* Cambia el color de fondo al pasar el cursor */
+}
+
+.table-cell {
+  padding: 12px;
+  color: #000;
+  font-size: 1rem;
+}
+
+.star-icon {
+  color: #fdd835;
+}

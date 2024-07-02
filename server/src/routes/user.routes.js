@@ -5,6 +5,7 @@ const {
   logActivity,
   getActions,
   saveData,
+  getData,
 } = require("../controllers/user.controllers");
 const router = Router();
 
@@ -13,5 +14,6 @@ router.get("/menu", getMenu);
 router.post("/bitacora", logActivity);
 router.get("/actions", getActions);
 router.post("/:moduleId", saveData);
+router.get("/:moduleId", getData);
 
 module.exports = router;

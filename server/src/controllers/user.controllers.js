@@ -35,6 +35,16 @@ const saveData = async (req, res) => {
   }
 };
 
+const getData = async (req, res) => {
+  const { moduleId } = req.params;
+  try {
+    const result = await pool.query(`SELECT * FROM ${moduleId}`);
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ error: "Sin Tabla" });
+  }
+};
+
 const loginUser = async (req, res, next) => {
   try {
     const { userName, password } = req.body;
@@ -106,4 +116,5 @@ module.exports = {
   getMenu,
   logActivity,
   saveData,
+  getData,
 };
