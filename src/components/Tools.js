@@ -20,8 +20,14 @@ import { useModuleDataContext } from "../auth/ModuleProvider";
 import { useToolsContext } from "../auth/ToolsProvider";
 
 export default function Tools() {
-  const { actions, handleActionClick, handleSearchChange, searchQuery } =
-    useToolsContext();
+  const {
+    actions,
+    handleActionClick,
+    handleSearchChange,
+    searchQuery,
+    currentView,
+    selectedRecord,
+  } = useToolsContext();
   const { moduleData } = useModuleDataContext();
   const [showCloudIcon, setShowCloudIcon] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -58,18 +64,20 @@ export default function Tools() {
               <Typography variant="h6" sx={{ marginLeft: 1, marginRight: 2 }}>
                 {moduleData.label}
               </Typography>
-              {actions
-                .filter((action) => action.action === "settingsAction")
-                .map((action) => (
-                  <IconButton
-                    key={action.id}
-                    size="large"
-                    onClick={handleSettingsClick}
-                  >
-                    {React.createElement(icons[action.icon])}
-                  </IconButton>
-                ))}
-              {showCloudIcon &&
+              {selectedRecord &&
+                Object.keys(selectedRecord).length > 0 &&
+                actions
+                  .filter((action) => action.action === "settingsAction")
+                  .map((action) => (
+                    <IconButton
+                      key={action.id}
+                      size="large"
+                      onClick={handleSettingsClick}
+                    >
+                      {React.createElement(icons[action.icon])}
+                    </IconButton>
+                  ))}
+              {currentView === "formNew" &&
                 actions
                   .filter((action) => action.action === "cloudAction")
                   .map((action) => (

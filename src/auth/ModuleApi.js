@@ -72,8 +72,39 @@ const getData = async (moduleId) => {
   }
 };
 
+const deleteData = async (moduleId, id) => {
+  const endpoint = moduleEndpointMap[moduleId];
+
+  if (!endpoint) {
+    throw new Error(`No endpoint found for moduleId: ${moduleId}`);
+  }
+
+  const url = `${API_BASE_URL}${endpoint}/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT", // Use PUT for updating with partial data
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ moduleId, id }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error deleting data:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   moduleEndpointMap,
   saveData,
   getData,
+  deleteData,
 };

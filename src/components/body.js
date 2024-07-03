@@ -7,7 +7,7 @@ import { useModuleDataContext } from "../auth/ModuleProvider";
 const { getData } = require("../auth/ModuleApi");
 
 const Body = () => {
-  const { currentView } = useToolsContext();
+  const { currentView, handleRecordSelect } = useToolsContext();
   const { moduleData } = useModuleDataContext();
   const [data, setData] = useState([]);
 
@@ -30,7 +30,11 @@ const Body = () => {
       {currentView === "formNew" ? (
         <FormNew />
       ) : (
-        <Vistas viewType={currentView} data={data} />
+        <Vistas
+          viewType={currentView}
+          data={data}
+          onRecordSelect={handleRecordSelect}
+        />
       )}
     </div>
   );

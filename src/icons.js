@@ -25,6 +25,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloudIcon from "@mui/icons-material/Cloud";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ViewListIcon from "@mui/icons-material/ViewList";
+import DeleteIcon from "@mui/icons-material/Delete"; // Icono para eliminar
 
 const icons = {
   ArchiveIcon,
@@ -54,6 +55,7 @@ const icons = {
   PersonIcon,
   SettingsIcon,
   PatternIcon,
+  DeleteIcon, // Agregado el icono de eliminar
 };
 
 export default icons;

@@ -35,6 +35,22 @@ const saveData = async (req, res) => {
   }
 };
 
+const deleteRecord = async (req, res) => {
+  const { moduleId, id } = req.params;
+
+  try {
+    const result = await pool.query(
+      `UPDATE ${moduleId} SET fechaeliminacion = $1 WHERE id = $2 RETURNING *`,
+      [new Date().toISOString(), id]
+    );
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error deleting record:", error);
+    res.status(400).json({ error: "Error deleting record" });
+  }
+};
+
 const getData = async (req, res) => {
   const { moduleId } = req.params;
   try {
@@ -117,4 +133,5 @@ module.exports = {
   logActivity,
   saveData,
   getData,
+  deleteRecord,
 };

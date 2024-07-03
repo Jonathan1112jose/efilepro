@@ -1,5 +1,4 @@
-// Vistas.js
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -14,14 +13,25 @@ import {
   CardContent,
   CardActions,
   Card,
+  Checkbox,
 } from "@mui/material";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import "./css/vistas.css"; // Importar estilos CSS
+import "./css/vistas.css";
 
-const Vistas = ({ viewType, data }) => {
+const Vistas = ({ viewType, data, onRecordSelect }) => {
+  const [selectedRecord, setSelectedRecord] = useState(null);
+
+  const handleRecordSelect = (record) => {
+    const newSelectedRecord =
+      selectedRecord && selectedRecord.id === record.id ? null : record;
+    setSelectedRecord(newSelectedRecord);
+    onRecordSelect(newSelectedRecord);
+  };
+
   const renderList = () => {
-    if (data.length === 0) {
+    const dataFilter = data.filter((item) => !item.fechaeliminacion);
+    if (dataFilter.length === 0) {
       return (
         <Box p={2}>
           <Typography variant="h6">No hay registros aún</Typography>
@@ -29,25 +39,41 @@ const Vistas = ({ viewType, data }) => {
       );
     }
 
-    // Obtener las claves de la primera entrada de datos (si hay alguna)
-    const keys = Object.keys(data[0]);
+    const keys = Object.keys(dataFilter[0]);
 
     return (
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow className="table-header">
+              <TableCell>{""}</TableCell>
               {keys.map((key) => (
                 <TableCell key={key}>{formatHeader(key)}</TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
+            {dataFilter.map((item) => (
               <TableRow
                 key={item.id}
-                style={{ borderBottom: "1px solid #ccc" }}
+                style={{
+                  borderBottom: "1px solid #ccc",
+                  backgroundColor:
+                    selectedRecord && selectedRecord.id === item.id
+                      ? "#f0f0f0"
+                      : "inherit",
+                }}
+                onClick={() => handleRecordSelect(item)}
               >
+                <TableCell>
+                  <Checkbox
+                    checked={
+                      selectedRecord ? selectedRecord.id === item.id : false
+                    }
+                    onChange={() => handleRecordSelect(item)}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </TableCell>
                 {keys.map((key) => (
                   <TableCell key={key}>
                     {key === "fav" ? (
@@ -74,18 +100,18 @@ const Vistas = ({ viewType, data }) => {
   };
 
   const formatHeader = (key) => {
-    // Manejar diferentes convenciones de capitalización y separación de palabras
     return key
-      .replace(/_/g, " ") // Reemplazar guiones bajos con espacios
-      .replace(/([a-z])([A-Z])/g, "$1 $2") // Separar camelCase
-      .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2") // Manejar casos como NombreProyecto
-      .split(" ") // Dividir por espacios
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalizar cada palabra
-      .join(" "); // Unir con espacio
+      .replace(/_/g, " ")
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
   };
 
   const renderCards = () => {
-    if (data.length === 0) {
+    const dataFilter = data.filter((item) => !item.fechaeliminacion);
+    if (dataFilter.length === 0) {
       return (
         <Box p={2}>
           <Typography variant="h6">No hay registros aún</Typography>
@@ -95,8 +121,14 @@ const Vistas = ({ viewType, data }) => {
 
     return (
       <Box display="flex" flexWrap="wrap" gap={2} p={2}>
-        {data.map((item) => (
-          <Card key={item.id} className="card">
+        {dataFilter.map((item) => (
+          <Card
+            key={item.id}
+            className={`card ${
+              selectedRecord && selectedRecord.id === item.id ? "selected" : ""
+            }`}
+            onClick={() => handleRecordSelect(item)}
+          >
             <CardContent>
               <Typography variant="h6">{item.nombre_proyecto}</Typography>
               <Typography variant="body1" color="textSecondary">
@@ -111,7 +143,7 @@ const Vistas = ({ viewType, data }) => {
                 {item.fav ? (
                   <StarIcon className="star-icon" />
                 ) : (
-                  <StarBorderIcon className="star-icon" />
+                  <StarBorderIcon className="star-border-icon" />
                 )}
               </IconButton>
             </CardActions>
@@ -121,18 +153,11 @@ const Vistas = ({ viewType, data }) => {
     );
   };
 
-  const getViewContent = () => {
-    switch (viewType) {
-      case "list":
-        return renderList();
-      case "cards":
-        return renderCards();
-      default:
-        return renderList();
-    }
-  };
-
-  return <div>{getViewContent()}</div>;
+  return (
+    <Box className="vistas-container">
+      {viewType === "list" ? renderList() : renderCards()}
+    </Box>
+  );
 };
 
 export default Vistas;
